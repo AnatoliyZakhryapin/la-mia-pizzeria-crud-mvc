@@ -1,5 +1,5 @@
-﻿using Pizzeria.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Pizzeria.Models;
 using System.Diagnostics;
 
 namespace Pizzeria.Controllers
@@ -15,7 +15,6 @@ namespace Pizzeria.Controllers
 
         public IActionResult Index()
         {
-
             return View();
         }
 
