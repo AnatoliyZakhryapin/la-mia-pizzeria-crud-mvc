@@ -31,9 +31,12 @@ namespace Pizzeria.Controllers
 
             return View(listaPizzas);
         }
-
-        public IActionResult Show(Pizza pizza)
+        [Route("/Pizzeria/{name}")]
+        public IActionResult Show(int id)
         {
+
+            Pizza pizza = DatabaseContext.Pizzas.Where(x => x.PizzaId == id).FirstOrDefault();
+
             return View(pizza);
         }
     }
