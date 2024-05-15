@@ -5,7 +5,7 @@ namespace Pizzeria.Models
     public class PizzeriaDatabaseContext : DbContext 
     {
 
-        public DbSet<Pizza> Pizza { get; set; }
+        public DbSet<Pizza> Pizzas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -13,3 +13,4 @@ namespace Pizzeria.Models
         }
     }
 }
+ 
