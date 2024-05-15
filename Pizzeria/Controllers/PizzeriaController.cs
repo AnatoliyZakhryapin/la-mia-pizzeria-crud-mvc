@@ -17,5 +17,10 @@ namespace Pizzeria.Controllers
 
             return View(pizze);
         }
+
+        public IActionResult Show(Pizza pizza)
+        {
+            return View(pizza);
+        }
     }
 }
