@@ -39,14 +39,17 @@ namespace Pizzeria.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("PizzaId");
 
-                    b.ToTable("Pizza");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("pizzas");
                 });
 #pragma warning restore 612, 618
         }

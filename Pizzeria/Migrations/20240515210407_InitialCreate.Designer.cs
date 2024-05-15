@@ -11,7 +11,7 @@ using Pizzeria.Models;
 namespace Pizzeria.Migrations
 {
     [DbContext(typeof(PizzeriaDatabaseContext))]
-    [Migration("20240515162900_InitialCreate")]
+    [Migration("20240515210407_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,14 +41,17 @@ namespace Pizzeria.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("PizzaId");
 
-                    b.ToTable("Pizza");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("pizzas");
                 });
 #pragma warning restore 612, 618
         }
