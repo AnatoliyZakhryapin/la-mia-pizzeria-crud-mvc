@@ -7,8 +7,8 @@ namespace Pizzeria.Models
     [Table("pizzas")]
     [Index(nameof(Name), IsUnique = true)]
     public class Pizza
-    { 
-        public long PizzaId {  get; set; }
+    {
+        public long PizzaId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string FotoUrl { get; set; }
@@ -17,7 +17,7 @@ namespace Pizzeria.Models
         public decimal Price { get; set; }
 
         public Pizza() { }
-        public Pizza( string name, string description, string fotoUrl, decimal price)
+        public Pizza(string name, string description, string fotoUrl, decimal price)
         {
             Name = name;
             Description = description;

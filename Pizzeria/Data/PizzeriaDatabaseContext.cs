@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pizzeria.Models;
 
-namespace Pizzeria.Models
+namespace Pizzeria.Data
 {
-    public class PizzeriaDatabaseContext : DbContext 
+    public class PizzeriaDatabaseContext : DbContext
     {
 
         public DbSet<Pizza> Pizzas { get; set; }
@@ -13,4 +14,3 @@ namespace Pizzeria.Models
         }
     }
 }
- 
