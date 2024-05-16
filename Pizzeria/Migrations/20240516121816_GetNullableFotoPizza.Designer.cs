@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pizzeria.Data;
 
@@ -10,9 +11,10 @@ using Pizzeria.Data;
 namespace Pizzeria.Migrations
 {
     [DbContext(typeof(PizzeriaDatabaseContext))]
-    partial class PizzeriaDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240516121816_GetNullableFotoPizza")]
+    partial class GetNullableFotoPizza
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
