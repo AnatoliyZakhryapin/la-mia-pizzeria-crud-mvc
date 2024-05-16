@@ -22,5 +22,23 @@ namespace Pizzeria.Controllers
 
             return View(pizzaFinded);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Pizza data)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Create", data);
+            }
+
+            PizzaManager.AddNewPizza(data);
+            return RedirectToAction("Index");
+        }
     }
 }
