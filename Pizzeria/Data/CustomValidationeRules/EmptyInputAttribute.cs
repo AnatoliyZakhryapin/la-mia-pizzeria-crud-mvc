@@ -8,12 +8,11 @@ namespace Pizzeria.Data.CustomValidationeRules
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
 
-            if (value == null || value == "")
+            if (Convert.ToInt32(value) == 0 || value == null || value == " ")
             {
                 return new ValidationResult($"Input non puo essere vuoto");
             }
 
-            //return new ValidationResult($"Input e un decimal");
             return ValidationResult.Success;
         }
     }
