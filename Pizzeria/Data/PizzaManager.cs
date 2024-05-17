@@ -44,5 +44,11 @@ namespace Pizzeria.Data
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
             return db.Pizzas.FirstOrDefault(p => p.Name == name);
         }
+
+        public static Pizza GetPizzaById(int id)
+        {
+            using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+            return db.Pizzas.FirstOrDefault(p => p.PizzaId == id);
+        }
     }
 }
