@@ -80,11 +80,11 @@ namespace Pizzeria.Controllers
                 if (pizzaToEdit != null)
                     return View(pizzaToEdit);
                 else
-                    return View("errore");
+                    return NotFound();
             }
             else
             {
-                return View("errore");
+                return NotFound();
             }
         }
 
