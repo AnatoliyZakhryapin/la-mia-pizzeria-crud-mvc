@@ -72,5 +72,18 @@ namespace Pizzeria.Data
                 return false;
             }
         }
+
+        public static bool DeletePizza(long id)
+        {
+            using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+            var pizzaToDelete = db.Pizzas.Find(id);
+
+            if(pizzaToDelete == null)
+                return false;
+
+            db.Pizzas.Remove(pizzaToDelete);
+            db.SaveChanges();
+            return true;
+        }
     }
 }

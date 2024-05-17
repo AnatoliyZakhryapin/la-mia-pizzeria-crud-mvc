@@ -40,6 +40,12 @@
                                         <div class="price">@pizza.Price euro</div>
                                         <a href="@Url.Action("PreShow", "Pizzeria", new {id = pizza.PizzaId, pizzaName = pizza.Name} )" class="btn btn-primary">Dettaglio pizza</a>
                                         <a href="@Url.Action("PreUpdate", "Pizzeria", new {id = pizza.PizzaId, pizzaName = pizza.Name} )" class="btn btn-warning">Edit pizza</a>
+                                        <form asp-controller="Pizzeria" asp-action="Delete" asp-route-id="@pizza.PizzaId" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                CANCELLA
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

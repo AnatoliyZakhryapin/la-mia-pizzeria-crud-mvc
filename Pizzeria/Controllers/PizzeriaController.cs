@@ -105,5 +105,15 @@ namespace Pizzeria.Controllers
                 return NotFound();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(long id)
+        {
+            bool result = PizzaManager.DeletePizza(id);
+
+            if (result == true) return RedirectToAction("Index");
+
+            return NotFound();
+        }
     }
 }
