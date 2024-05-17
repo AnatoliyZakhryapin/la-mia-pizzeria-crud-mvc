@@ -50,5 +50,27 @@ namespace Pizzeria.Data
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
             return db.Pizzas.FirstOrDefault(p => p.PizzaId == id);
         }
+
+        public static bool UpdatePizza(long id, Pizza pizzaUpdated)
+        {
+            using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+            var pizzaToUpdate = db.Pizzas.Find(id);
+
+            if (pizzaToUpdate != null)
+            {
+                pizzaToUpdate.Name = pizzaUpdated.Name;
+                pizzaToUpdate.Description = pizzaUpdated.Description;
+                pizzaToUpdate.Price = pizzaUpdated.Price;
+                pizzaToUpdate.FotoUrl = pizzaToUpdate.FotoUrl;
+
+                db.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
