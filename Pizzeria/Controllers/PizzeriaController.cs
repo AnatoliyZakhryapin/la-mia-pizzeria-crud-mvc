@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Pizzeria.Data;
 using Pizzeria.Models;
 
@@ -14,13 +15,32 @@ namespace Pizzeria.Controllers
 
             return View(listaPizzas);
         }
+
+        public IActionResult PreShow(int id, string pizzaName)
+        {
+            TempData["PizzaId"] = id;
+
+            return RedirectToAction("Show", new { name = pizzaName });
+        }
+
         [Route("/Pizzeria/DettaglioPizza/{name}")]
         public IActionResult Show(string name)
         {
+            if (TempData.ContainsKey("PizzaId"))
+            {
+                int id = (int)TempData["PizzaId"];
 
-            Pizza pizzaFinded = PizzaManager.GetPizzaByName(name);
+                Pizza pizzaFinded = PizzaManager.GetPizzaById(id);
 
-            return View(pizzaFinded);
+                if (pizzaFinded != null)
+                    return View(pizzaFinded);
+                else
+                    return View("errore");
+            }
+            else
+            {
+                return View("errore");
+            }
         }
 
         public IActionResult Create()
@@ -40,5 +60,6 @@ namespace Pizzeria.Controllers
             PizzaManager.AddNewPizza(data);
             return RedirectToAction("Index");
         }
+
     }
 }
