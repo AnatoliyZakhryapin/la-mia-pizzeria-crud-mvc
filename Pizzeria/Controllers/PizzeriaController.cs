@@ -7,7 +7,6 @@ namespace Pizzeria.Controllers
 {
     public class PizzeriaController : Controller
     {
-        //public PizzeriaDatabaseContext DatabaseContext = new PizzeriaDatabaseContext();
         public IActionResult Index()
         {
 
@@ -55,7 +54,7 @@ namespace Pizzeria.Controllers
         {
             if (!ModelState.IsValid)
             {
-                data.Categories = PizzaManager.GetAllCategories();
+                data.Categories = PizzaManager.GetAllCategories(false);
                 return View("Create", data);
             }
 
@@ -99,6 +98,7 @@ namespace Pizzeria.Controllers
         {
             if(!ModelState.IsValid)
             {
+                data.Categories = PizzaManager.GetAllCategories(false);
                 return View("Update", data);
             }
 
