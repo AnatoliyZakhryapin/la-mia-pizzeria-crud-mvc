@@ -1,16 +1,16 @@
-html {
-  font-size: 14px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+ul, ol, menu {
+    list-style: none;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+a {
+    color: currentColor;
+    text-decoration: none;
 }
 
 body {
