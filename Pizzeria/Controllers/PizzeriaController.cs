@@ -7,7 +7,7 @@ namespace Pizzeria.Controllers
 {
     public class PizzeriaController : Controller
     {
-        public PizzeriaDatabaseContext DatabaseContext = new PizzeriaDatabaseContext();
+        //public PizzeriaDatabaseContext DatabaseContext = new PizzeriaDatabaseContext();
         public IActionResult Index()
         {
 
@@ -45,19 +45,21 @@ namespace Pizzeria.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            PizzeriaFormModel model = PizzaManager.CreatePizzeriaFormModel();
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Pizza data)
+        public IActionResult Create(PizzeriaFormModel data)
         {
             if (!ModelState.IsValid)
             {
+                //data.Categories = PizzaManager.GetAllCategories();
                 return View("Create", data);
             }
 
-            PizzaManager.AddNewPizza(data);
+            PizzaManager.AddNewPizza(data.Pizza);
             return RedirectToAction("Index");
         }
 

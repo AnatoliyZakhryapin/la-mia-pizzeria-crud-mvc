@@ -15,7 +15,7 @@ namespace Pizzeria.Models
         [StringLength(50, ErrorMessage = "Il titolo non deve avere al più 50 caratteri")]
         public string Title { get; set; }
 
-        public List<Pizza> Pizzas { get; set; }
+        public List<Pizza>? Pizzas { get; set; }
 
         public Category() { }
     }

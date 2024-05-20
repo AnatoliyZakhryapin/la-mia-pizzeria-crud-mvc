@@ -1,4 +1,5 @@
-﻿using Pizzeria.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Pizzeria.Models;
 
 namespace Pizzeria.Data
 {
@@ -33,9 +34,12 @@ namespace Pizzeria.Data
             db.SaveChanges();
         }
 
-        public static List<Pizza> GetAllPizzas()
+        public static List<Pizza> GetAllPizzas(bool includeReferences = true)
         {
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+            
+            if (includeReferences)
+                return db.Pizzas.Include(p => p.Category).ToList();
             return db.Pizzas.ToList();
         }
 
@@ -45,9 +49,13 @@ namespace Pizzeria.Data
             return db.Pizzas.FirstOrDefault(p => p.Name == name);
         }
 
-        public static Pizza GetPizzaById(int id)
+        public static Pizza GetPizzaById(int id, bool includeReferences = true)
         {
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+         
+
+            if (includeReferences)
+                return db.Pizzas.Include(p => p.Category).FirstOrDefault(p => p.PizzaId == id);
             return db.Pizzas.FirstOrDefault(p => p.PizzaId == id);
         }
 
@@ -84,6 +92,24 @@ namespace Pizzeria.Data
             db.Pizzas.Remove(pizzaToDelete);
             db.SaveChanges();
             return true;
+        }
+
+        public static List<Category> GetAllCategories(bool includeReferences = true)
+        {
+            using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+       
+            if (includeReferences)
+                return db.Categories.Include(p => p.Pizzas).ToList();
+
+            return db.Categories.ToList(); ;
+        }
+        public static PizzeriaFormModel CreatePizzeriaFormModel()
+        {
+            PizzeriaFormModel model = new PizzeriaFormModel();
+            model.Pizza = new Pizza();
+            model.Categories = GetAllCategories();
+
+            return model;
         }
     }
 }

@@ -40,5 +40,13 @@ namespace Pizzeria.Models
             FotoUrl = fotoUrl;
             Price = price;
         }
+
+        // Metodi
+        public string GetDisplayedCategory()
+        {
+            if (Category == null)
+                return "Nessuna categoria";
+            return Category.Title;
+        }
     }
 }
