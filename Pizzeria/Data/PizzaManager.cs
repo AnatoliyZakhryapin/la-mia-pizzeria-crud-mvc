@@ -52,7 +52,6 @@ namespace Pizzeria.Data
         public static Pizza GetPizzaById(int id, bool includeReferences = true)
         {
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
-         
 
             if (includeReferences)
                 return db.Pizzas.Include(p => p.Category).FirstOrDefault(p => p.PizzaId == id);
@@ -70,6 +69,7 @@ namespace Pizzeria.Data
                 pizzaToUpdate.Description = pizzaUpdated.Description;
                 pizzaToUpdate.Price = pizzaUpdated.Price;
                 pizzaToUpdate.FotoUrl = pizzaToUpdate.FotoUrl;
+                pizzaToUpdate.CategoryId = pizzaUpdated.CategoryId;
 
                 db.SaveChanges();
 
@@ -103,9 +103,18 @@ namespace Pizzeria.Data
 
             return db.Categories.ToList(); ;
         }
-        public static PizzeriaFormModel CreatePizzeriaFormModel()
+        public static PizzeriaFormModel CreatePizzeriaFormModel(Pizza pizza = null)
         {
+    
             PizzeriaFormModel model = new PizzeriaFormModel();
+            if (pizza != null)
+            {
+                model.Pizza = pizza;
+                model.Categories = GetAllCategories();
+
+                return model;
+            }
+
             model.Pizza = new Pizza();
             model.Categories = GetAllCategories();
 

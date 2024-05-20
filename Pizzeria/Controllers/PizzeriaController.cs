@@ -55,7 +55,7 @@ namespace Pizzeria.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //data.Categories = PizzaManager.GetAllCategories();
+                data.Categories = PizzaManager.GetAllCategories();
                 return View("Create", data);
             }
 
@@ -80,7 +80,10 @@ namespace Pizzeria.Controllers
                 Pizza pizzaToEdit = PizzaManager.GetPizzaById(id);
 
                 if (pizzaToEdit != null)
-                    return View(pizzaToEdit);
+                {
+                    PizzeriaFormModel model = PizzaManager.CreatePizzeriaFormModel(pizzaToEdit);
+                    return View(model);
+                }
                 else
                     return NotFound();
             }
@@ -92,14 +95,14 @@ namespace Pizzeria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(long id, Pizza data)
+        public IActionResult Update(long id, PizzeriaFormModel data)
         {
             if(!ModelState.IsValid)
             {
                 return View("Update", data);
             }
 
-            bool result = PizzaManager.UpdatePizza(id, data);
+            bool result = PizzaManager.UpdatePizza(id, data.Pizza);
 
             if (result == true)
                 return RedirectToAction("Index");
