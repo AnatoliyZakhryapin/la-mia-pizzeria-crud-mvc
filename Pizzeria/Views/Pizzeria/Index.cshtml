@@ -37,6 +37,11 @@
                                     <h5 class="card-title">@pizza.Name</h5>
                                     <h3 class="card-title">@pizza.GetDisplayedCategory()</h3>
                                     <p class="card-text">@pizza.Description</p>
+                                    <p class="card-text">Ingridients:</p>
+                                    @foreach(Ingredient i in pizza.Ingredients)
+                                    {
+                                       <p>@i.Name</p>
+                                    }
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="price">@pizza.Price euro</div>
                                         <a href="@Url.Action("PreShow", "Pizzeria", new {id = pizza.PizzaId, pizzaName = pizza.Name} )" class="btn btn-primary">Dettaglio pizza</a>
