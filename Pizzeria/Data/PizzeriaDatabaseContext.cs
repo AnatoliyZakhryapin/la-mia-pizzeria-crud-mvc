@@ -29,16 +29,16 @@ namespace Pizzeria.Data
                 .HasMany(p => p.Ingredients)
                 .WithMany(i => i.Pizzas)
                 .UsingEntity<Dictionary<string, object>>(
-                    "PizzaIngredient",
+                    "IngredientPizza",
                     j => j
                         .HasOne<Ingredient>()
                         .WithMany()
-                        .HasForeignKey("IngredientId")
+                        .HasForeignKey("ingredientsIngredientId")
                         .OnDelete(DeleteBehavior.Cascade),
                     j => j
                         .HasOne<Pizza>()
                         .WithMany()
-                        .HasForeignKey("PizzaId")
+                        .HasForeignKey("PizzasPizzaId")
                         .OnDelete(DeleteBehavior.Cascade)
                 );
 
