@@ -97,7 +97,7 @@ namespace Pizzeria.Data
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
 
             if (includeReferences)
-                return db.Pizzas.Include(p => p.Category).FirstOrDefault(p => p.PizzaId == id);
+                return db.Pizzas.Include(p => p.Category).Include(p => p.Ingredients).FirstOrDefault(p => p.PizzaId == id);
             return db.Pizzas.FirstOrDefault(p => p.PizzaId == id);
         }
 
@@ -163,6 +163,7 @@ namespace Pizzeria.Data
             {
                 model.Pizza = pizza;
                 model.Categories = GetAllCategories();
+                model.CreateIngredients();
 
                 return model;
             }
