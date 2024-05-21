@@ -1,10 +1,14 @@
-﻿namespace Pizzeria.Models
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace Pizzeria.Models
 
 {
     public class PizzeriaFormModel
     {
         public Pizza Pizza { get; set; }
         public List<Category>? Categories { get; set; }
+        public List<SelectListItem>? Ingredients { get; set; }
+        public List<string> SelectedIngredients { get; set; }
 
         public PizzeriaFormModel() { }
 
