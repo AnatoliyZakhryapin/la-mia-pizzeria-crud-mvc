@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Pizzeria.Models;
 
 namespace Pizzeria.Data
@@ -19,12 +20,44 @@ namespace Pizzeria.Data
                 }
                 catch (Exception) { }
             }
+            if (CountAllIngredients() == 0)
+            {
+                try
+                {
+                    PizzaManager.AddNewIngredient(new Ingredient("Polpa di pomodoro", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Acciughe", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Basilico", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Fiordilatte", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Fontina", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Gorgonzola", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Mozzarella", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Mozzarella di Bufala", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Olio d'oliva", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Origano", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Parmigiano", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Polpa di pomodoro", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Pomodoro", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Prosciuto", new List<Pizza>()));
+                    PizzaManager.AddNewIngredient(new Ingredient("Salame", new List<Pizza>()));
+                }
+                catch (Exception) { }
+            }
         }
-
+        public static int CountAllIngredients()
+        {
+            using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+            return db.Ingredients.Count();
+        }
         public static int CountAllPizzas()
         {
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
             return db.Pizzas.Count();
+        }
+        public static void AddNewIngredient(Ingredient ingredient)
+        {
+            using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+            db.Add(ingredient);
+            db.SaveChanges();
         }
 
         public static void AddNewPizza(Pizza pizza)
@@ -103,6 +136,15 @@ namespace Pizzeria.Data
 
             return db.Categories.ToList(); ;
         }
+
+        public static List<Ingredient> GetAllIngredients(bool includeReferences = true)
+        {
+            using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+            if(includeReferences)
+                return db.Ingredients.Include(i => i.Pizzas).ToList();
+            return db.Ingredients.ToList();
+        }
+
         public static PizzeriaFormModel CreatePizzeriaFormModel(Pizza pizza = null)
         {
     
@@ -117,6 +159,24 @@ namespace Pizzeria.Data
 
             model.Pizza = new Pizza();
             model.Categories = GetAllCategories();
+
+            model.Ingredients = new List<SelectListItem>();
+            model.SelectedIngredients = new List<string>();
+
+            List<Ingredient> ingredientsFormDb = PizzaManager.GetAllIngredients();
+
+            foreach(Ingredient ingredient in ingredientsFormDb)
+            {
+                bool idSelected = model.Pizza.Ingredients?.Any(i => i.IngredientId == ingredient.IngredientId) == true;
+                model.Ingredients.Add(new SelectListItem()
+                {
+                    Text = ingredient.Name,
+                    Value = ingredient.IngredientId.ToString(),
+                    Selected = idSelected
+                }); 
+                if (idSelected )
+                    model.SelectedIngredients.Add(ingredient.IngredientId.ToString());
+            }
 
             return model;
         }
