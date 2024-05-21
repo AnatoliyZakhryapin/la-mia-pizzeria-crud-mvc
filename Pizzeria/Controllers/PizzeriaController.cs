@@ -101,10 +101,13 @@ namespace Pizzeria.Controllers
             if(!ModelState.IsValid)
             {
                 data.Categories = PizzaManager.GetAllCategories(false);
+                data.CreateIngredients();
+                data.Pizza.PizzaId = id;
+
                 return View("Update", data);
             }
 
-            bool result = PizzaManager.UpdatePizza(id, data.Pizza);
+            bool result = PizzaManager.UpdatePizza(id, data.Pizza, data.SelectedIngredients);
 
             if (result == true)
                 return RedirectToAction("Index");

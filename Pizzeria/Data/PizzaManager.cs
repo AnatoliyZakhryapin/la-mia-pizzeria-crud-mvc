@@ -101,11 +101,11 @@ namespace Pizzeria.Data
             return db.Pizzas.FirstOrDefault(p => p.PizzaId == id);
         }
 
-        public static bool UpdatePizza(long id, Pizza pizzaUpdated)
+        public static bool UpdatePizza(long id, Pizza pizzaUpdated, List<string> SelectedIngredients)
         {
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
-            var pizzaToUpdate = db.Pizzas.Find(id);
-
+            var pizzaToUpdate = db.Pizzas.Where(p => p.PizzaId == id).Include(p => p.Category).Include(p => p.Ingredients).FirstOrDefault();
+    
             if (pizzaToUpdate != null)
             {
                 pizzaToUpdate.Name = pizzaUpdated.Name;
@@ -113,6 +113,17 @@ namespace Pizzeria.Data
                 pizzaToUpdate.Price = pizzaUpdated.Price;
                 pizzaToUpdate.FotoUrl = pizzaToUpdate.FotoUrl;
                 pizzaToUpdate.CategoryId = pizzaUpdated.CategoryId;
+
+                pizzaToUpdate.Ingredients.Clear();
+                if(SelectedIngredients != null)
+                {
+                    foreach (string i in SelectedIngredients)
+                    {
+                        int idIngredient = int.Parse(i);
+                        Ingredient ingredient = db.Ingredients.FirstOrDefault(i => i.IngredientId == idIngredient);
+                        pizzaToUpdate.Ingredients.Add(ingredient);
+                    }
+                }
 
                 db.SaveChanges();
 
