@@ -30,7 +30,7 @@ namespace Pizzeria.Models
         // Relazioni
         public long? CategoryId { get; set; }
         public Category? Category {  get; set; }
-        public List<Ingredient>? ingredients { get; set; }
+        public List<Ingredient>? Ingredients { get; set; }
 
         // Costrutore
         public Pizza() { }

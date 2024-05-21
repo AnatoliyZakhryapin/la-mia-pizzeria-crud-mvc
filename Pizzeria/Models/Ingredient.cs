@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Pizzeria.Models
 {
-    [Table("Ingredients")]
+    [Table("ingredients")]
     [Index(nameof(Name), IsUnique = true)]
     public class Ingredient
     {
