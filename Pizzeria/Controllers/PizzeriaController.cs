@@ -55,10 +55,12 @@ namespace Pizzeria.Controllers
             if (!ModelState.IsValid)
             {
                 data.Categories = PizzaManager.GetAllCategories(false);
+                data.CreateIngredients();
+
                 return View("Create", data);
             }
 
-            PizzaManager.AddNewPizza(data.Pizza);
+            PizzaManager.AddNewPizza(data.Pizza, data.SelectedIngredients);
             return RedirectToAction("Index");
         }
 
