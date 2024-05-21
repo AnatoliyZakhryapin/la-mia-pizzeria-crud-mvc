@@ -60,9 +60,19 @@ namespace Pizzeria.Data
             db.SaveChanges();
         }
 
-        public static void AddNewPizza(Pizza pizza)
+        public static void AddNewPizza(Pizza pizza, List<string> SelectedIngredients = null)
         {
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
+            if(SelectedIngredients != null )
+            {
+                pizza.Ingredients = new List<Ingredient>();
+                foreach(string i in SelectedIngredients)
+                {
+                    int id = int.Parse(i);
+                    Ingredient ingredient = db.Ingredients.FirstOrDefault(i => i.IngredientId == id);
+                    pizza.Ingredients.Add(ingredient);
+                }
+            }
             db.Add(pizza);
             db.SaveChanges();
         }
@@ -72,7 +82,7 @@ namespace Pizzeria.Data
             using PizzeriaDatabaseContext db = new PizzeriaDatabaseContext();
             
             if (includeReferences)
-                return db.Pizzas.Include(p => p.Category).ToList();
+                return db.Pizzas.Include(p => p.Category).Include(p => p.Ingredients).ToList();
             return db.Pizzas.ToList();
         }
 
