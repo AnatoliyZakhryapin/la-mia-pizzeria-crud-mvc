@@ -72,10 +72,15 @@ body {
     padding: 0px 14px;
 }
 
+.navbar-toggler:hover,
 .nav-item:hover {
     background-color: var(--light-gray);
 }
 
+.navbar-toggler {
+    color: rgb(207 62 1);
+    border-color: rgb(207 62 1);
+}
 /* Hero section */
 
 .hero-section .card-hero .card-title {

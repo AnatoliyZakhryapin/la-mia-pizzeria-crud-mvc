@@ -1,20 +1,20 @@
-﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 py-3 fs-4">
+﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-white box-shadow mb-3 py-3 fs-lg-5 fs-6">
     <div class="container">
-        <div class="row justify-content-between w-100 align-items-center d-none d-sm-flex">
-            <div class="col-auto d-none d-sm-block">
+        <div class="row justify-content-sm-between justify-content-end w-100 align-items-center flex-lg-nowrap">
+            <div class="col-auto d-none d-md-block">
                 <figure>
                     <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/img/logo.png" alt="..." class="m-0">
                     </a>
                 </figure>
             </div>
-            <div class="col-auto">
-                <ul class="navbar-nav ms-auto gap-4">
+            <div class="col-auto d-none d-sm-block">
+                <ul class="navbar-nav ms-auto gap-lg-3 gap-2">
                     <li class="nav-item">
                         <a class="nav-link active text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Pizzeria" asp-action="Index">Pizzeria</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Pizzeria" asp-action="Index">Menu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Pizzeria" asp-action="Create">Crea Pizza</a>
@@ -26,12 +26,13 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-auto">
+            <div class="col-auto d-none d-sm-block" style="min-width: 138px;">
                 <div class="d-none d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav nav-underline ms-auto login d-sm-block">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
-                                <i class="fa-regular fa-circle-user login-icon"> <span>Log In</span> </i>
+                                <span><i class="fa-regular fa-circle-user login-icon"></i></span>
+                                <span class="d-none d-md-inline">Log In</span>
                             </a>
                         </li>
                     </ul>
@@ -40,7 +41,9 @@
             <div class="col-auto d-sm-none">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="">
+                        <i class="fa-solid fa-bars"></i>
+                    </span>
                 </button>
             </div>
         </div>
@@ -53,6 +56,32 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        ...
+        <ul class="navbar-nav ms-auto gap-lg-3 gap-2 py-3 border-3 border-bottom">
+            <li class="nav-item d-flex align-items-center justify-content-between">
+                <a class="nav-link active text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <i class="fa-solid fa-angle-right"></i>
+            </li>
+            <li class="nav-item d-flex align-items-center justify-content-between">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Pizzeria" asp-action="Index">Menu</a>
+                <i class="fa-solid fa-angle-right"></i>
+            </li>
+            <li class="nav-item d-flex align-items-center justify-content-between">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Pizzeria" asp-action="Create">Crea Pizza</a>
+                <i class="fa-solid fa-angle-right"></i>
+            </li>
+@*             <li class="nav-item d-flex align-items-center justify-content-between">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fa-regular fa-circle-user login-icon"> <span>Log In</spaN> </i>
+                </a>
+                <i class="fa-solid fa-angle-right"></i>
+            </li> *@
+        </ul>
+         <ul class="navbar-nav nav-underline ms-auto login d-sm-block py-3">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fa-regular fa-circle-user login-icon"> <span>Log In</spaN> </i>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
