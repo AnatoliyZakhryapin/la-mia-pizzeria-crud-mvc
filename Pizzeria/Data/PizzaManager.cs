@@ -159,24 +159,7 @@ namespace Pizzeria.Data
 
             model.Pizza = new Pizza();
             model.Categories = GetAllCategories();
-
-            model.Ingredients = new List<SelectListItem>();
-            model.SelectedIngredients = new List<string>();
-
-            List<Ingredient> ingredientsFormDb = PizzaManager.GetAllIngredients();
-
-            foreach(Ingredient ingredient in ingredientsFormDb)
-            {
-                bool idSelected = model.Pizza.Ingredients?.Any(i => i.IngredientId == ingredient.IngredientId) == true;
-                model.Ingredients.Add(new SelectListItem()
-                {
-                    Text = ingredient.Name,
-                    Value = ingredient.IngredientId.ToString(),
-                    Selected = idSelected
-                }); 
-                if (idSelected )
-                    model.SelectedIngredients.Add(ingredient.IngredientId.ToString());
-            }
+            model.CreateIngredients();
 
             return model;
         }

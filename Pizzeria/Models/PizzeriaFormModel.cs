@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Pizzeria.Data;
 
 namespace Pizzeria.Models
 
@@ -16,6 +17,27 @@ namespace Pizzeria.Models
         {
             this.Pizza = pizza;
             this.Categories = categories;
+        }
+
+        public void CreateIngredients()
+        {
+            this.Ingredients = new List<SelectListItem>();
+            this.SelectedIngredients = new List<string>();
+
+            List<Ingredient> ingredientsFormDb = PizzaManager.GetAllIngredients();
+
+            foreach (Ingredient ingredient in ingredientsFormDb)
+            {
+                bool idSelected = this.Pizza.Ingredients?.Any(i => i.IngredientId == ingredient.IngredientId) == true;
+                this.Ingredients.Add(new SelectListItem()
+                {
+                    Text = ingredient.Name,
+                    Value = ingredient.IngredientId.ToString(),
+                    Selected = idSelected
+                });
+                if (idSelected)
+                    this.SelectedIngredients.Add(ingredient.IngredientId.ToString());
+            }
         }
     }
 }
