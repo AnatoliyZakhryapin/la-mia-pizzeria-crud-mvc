@@ -17,5 +17,11 @@ namespace Pizzeria.Models
         public List<Pizza> Pizzas { get; set; }
 
         public Ingredient() { } 
+
+        public Ingredient(string name, List<Pizza> pizzas)
+        {
+            Name = name;
+            Pizzas = pizzas;
+        }
     }
 }
