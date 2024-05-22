@@ -13,7 +13,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-auto">
-                    <h1>Menu Pizzas</h1>
+                    <h1 class="fw-bold">Menu</h1>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                             <h2 class="card-title border-3 border-bottom d-flex justify-content-between">@pizza.Name <span class="price">@pizza.Price euro</span></h2>
+                                            <h2 class="card-title border-3 border-bottom d-flex justify-content-between fw-bold">@pizza.Name <span class="price">@pizza.Price euro</span></h2>
                                             <h5 class="card-title pizza-category">@pizza.GetDisplayedCategory()</h5>
                                             <p class="card-text mb-4 fst-italic">
                                                 Ingridients : @foreach (Ingredient i in pizza.Ingredients)
