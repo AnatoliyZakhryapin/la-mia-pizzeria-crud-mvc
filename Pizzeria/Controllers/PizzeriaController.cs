@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Pizzeria.Data;
 using Pizzeria.Models;
 
 namespace Pizzeria.Controllers
 {
+    [Authorize]
     public class PizzeriaController : Controller
     {
         public IActionResult Index()
@@ -33,7 +35,6 @@ namespace Pizzeria.Controllers
             string currentController = ControllerContext.RouteData.Values["controller"].ToString();
             string currentAction = ControllerContext.RouteData.Values["action"].ToString();
             string currentPage = $"{currentController}/{currentAction}";
-
             ViewData["CurrentPage"] = currentPage;
 
             if (TempData.ContainsKey("PizzaId"))
@@ -53,12 +54,12 @@ namespace Pizzeria.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             string currentController = ControllerContext.RouteData.Values["controller"].ToString();
             string currentAction = ControllerContext.RouteData.Values["action"].ToString();
             string currentPage = $"{currentController}/{currentAction}";
-
             ViewData["CurrentPage"] = currentPage;
 
             PizzeriaFormModel model = PizzaManager.CreatePizzeriaFormModel();
@@ -67,6 +68,7 @@ namespace Pizzeria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(PizzeriaFormModel data)
         {
             if (!ModelState.IsValid)
@@ -81,6 +83,7 @@ namespace Pizzeria.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult PreUpdate(int id, string pizzaName)
         {
             TempData["PizzaId"] = id;
@@ -89,6 +92,7 @@ namespace Pizzeria.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Update(string name)
         {
             if (TempData.ContainsKey("PizzaId"))
@@ -113,6 +117,7 @@ namespace Pizzeria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult Update(long id, PizzeriaFormModel data)
         {
             if(!ModelState.IsValid)
@@ -134,6 +139,7 @@ namespace Pizzeria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(long id)
         {
             bool result = PizzaManager.DeletePizza(id);

@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Pizzeria.Models;
 
 namespace Pizzeria.Data
 {
-    public class PizzeriaDatabaseContext : DbContext
+    public class PizzeriaDatabaseContext : IdentityDbContext<IdentityUser>
     {
 
         public DbSet<Pizza> Pizzas { get; set; }

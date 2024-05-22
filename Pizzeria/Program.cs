@@ -1,4 +1,6 @@
 using Pizzeria.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pizzeria
 {
@@ -9,6 +11,14 @@ namespace Pizzeria
             PizzaManager.PizzaSeeder();
 
             var builder = WebApplication.CreateBuilder(args);
+            //var connectionString = builder.Configuration.GetConnectionString("PizzeriaDatabaseContextConnection") ?? throw new InvalidOperationException("Connection string 'PizzeriaDatabaseContextConnection' not found.");
+
+            //builder.Services.AddDbContext<PizzeriaDatabaseContext>(options =>options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<PizzeriaDatabaseContext>();
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<PizzeriaDatabaseContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -28,11 +38,15 @@ namespace Pizzeria
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }
