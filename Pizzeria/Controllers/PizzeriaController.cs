@@ -9,6 +9,11 @@ namespace Pizzeria.Controllers
     {
         public IActionResult Index()
         {
+            string currentController = ControllerContext.RouteData.Values["controller"].ToString();
+            string currentAction = ControllerContext.RouteData.Values["action"].ToString();
+            string currentPage = $"{currentController}/{currentAction}";
+
+            ViewData["CurrentPage"] = currentPage;
 
             List<Pizza> listaPizzas = PizzaManager.GetAllPizzas();
 
@@ -25,6 +30,12 @@ namespace Pizzeria.Controllers
         [Route("/Pizzeria/DettaglioPizza/{name}")]
         public IActionResult Show(string name)
         {
+            string currentController = ControllerContext.RouteData.Values["controller"].ToString();
+            string currentAction = ControllerContext.RouteData.Values["action"].ToString();
+            string currentPage = $"{currentController}/{currentAction}";
+
+            ViewData["CurrentPage"] = currentPage;
+
             if (TempData.ContainsKey("PizzaId"))
             {
                 int id = (int)TempData["PizzaId"];
@@ -44,6 +55,12 @@ namespace Pizzeria.Controllers
 
         public IActionResult Create()
         {
+            string currentController = ControllerContext.RouteData.Values["controller"].ToString();
+            string currentAction = ControllerContext.RouteData.Values["action"].ToString();
+            string currentPage = $"{currentController}/{currentAction}";
+
+            ViewData["CurrentPage"] = currentPage;
+
             PizzeriaFormModel model = PizzaManager.CreatePizzeriaFormModel();
             return View(model);
         }

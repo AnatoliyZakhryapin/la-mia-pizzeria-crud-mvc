@@ -15,6 +15,12 @@ namespace Pizzeria.Controllers
 
         public IActionResult Index()
         {
+            string currentController = ControllerContext.RouteData.Values["controller"].ToString();
+            string currentAction = ControllerContext.RouteData.Values["action"].ToString();
+            string currentPage = $"{currentController}/{currentAction}";
+
+            ViewData["CurrentPage"] = currentPage;
+
             return View();
         }
 
